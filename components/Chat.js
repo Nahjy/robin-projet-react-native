@@ -3,9 +3,10 @@ import { Text, View, StyleSheet } from 'react-native';
 
 export class Chat extends React.Component {
     render() {
+      const { user } = this.props;
       return (
         <View style={styles.container}>
-          <Text>ChatPage</Text>
+          <Text>Ouverture du chat de { user } !</Text>
         </View>
       );
     }
