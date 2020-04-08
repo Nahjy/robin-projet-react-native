@@ -1,19 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
+import { Home } from './components/Home';
+//export default class App extends React.Component (ES6). ne pas oublier le render().
+export default class App extends React.Component {
+  render(){
+  //composent React
   return (
-    <View style={styles.container}>
-      <Text>coucou</Text>
-    </View>
+    <Home/>
+    
   );
 }
+}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
