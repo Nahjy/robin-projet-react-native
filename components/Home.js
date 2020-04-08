@@ -4,25 +4,44 @@ import { Actions } from 'react-native-router-flux';
 export class Home extends React.Component {
 
 state = {
-  user: ''
+  user: '',
+  room: ''
 }
 
+    handleUserChange = user =>{
+      this.setState({ user });
+    }
+    handleRoomChange = room =>{
+      this.setState({ room });
+    }
+    handleChatPress = e =>{
+      const {user, room} = this.state;
+      Actions.chat({user}, {room, title:`salon ${room} `});
+    }
+
     render() {
-      const { user } = this.state;
+      const { user, room } = this.state;
       return (
           <View style={styles.container}>
-        <Text style={styles.h1}>Cliquez pour commencer</Text>
+        <Text style={styles.h1}>Rentrez votre pseudo</Text>
 
         <TextInput style={styles.input}
           value={user}
-          placeholder="pseudo"
-          onChangeText={text=>{
-          this.setState({ user: text })
-          }}
+          placeholder="Pseudo"
+          onChangeText={this.handleUserChange}
         />
+
+        <Text style={styles.h1}>Indiquez le nom du salon de discution</Text>
+
+        <TextInput style={styles.input}
+          value={room}
+          placeholder="salon"
+          onChangeText={this.handleRoomChange}
+        />
+
         <Button style={styles.button}
         title="commencez !"
-        onPress={()=> {Actions.chat({user});}} // permet d'afficher la page suivante et d'envoyer la valeur user
+        onPress={this.handleChatPress} // permet d'afficher la page suivante et d'envoyer la valeur user
         color="#F0F"
         />
         </View>
