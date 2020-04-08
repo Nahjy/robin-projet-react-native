@@ -5,7 +5,7 @@ export class Home extends React.Component {
     render() {
       return (
           <View style={styles.container}>
-        <Text>HomePage</Text>
+        <Text style={styles.h1}>HomePage</Text>
         </View>
       );
     }
@@ -14,10 +14,14 @@ export class Home extends React.Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#000',
       alignItems: 'center',
       justifyContent: 'center',
     },
+    h1: {
+      color: 'blue',
+      fontSize: 20
+    }
   });
   
   /************************************
