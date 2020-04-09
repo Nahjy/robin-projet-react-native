@@ -1,30 +1,33 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Text, View, StyleSheet, FlatList, Button, TextInput } from 'react-native';
-import { MessageItem } from './MessageItem';
+import { MessageItem } from './';
+import { chatActions } from '../actions';
 
-const messages = [
-  {
-    content: 'Message 1',
-    author: 'robert',
-    created_at: new Date()
-  },
-  {
-    content: 'Message 2',
-    author: 'marie',
-    created_at: new Date()
-  },
-  {
-    content: 'Message 3',
-    author: 'robert',
-    created_at: new Date()
-  }
-];
+
+@connect(({ chat: {
+  user,
+  room,
+  messages} 
+}) => ({ user, room, messages }))
+
 export class Chat extends React.Component {
+  state = {
+    content: ''
+  }
+  handleContentChange = content => {
+    this.setState({ content });
+  }
+  handleSendPress = e =>{
+    const { dispatch } = this.props;
+    dispatch(chatActions.sendMessage({ content }));
+  }
     render() {
-      const { user, room } = this.props;
-      
+      const { user } = this.props;
+      const { content } = this.state;
       return (
         <View style={styles.container}>
+        {error && <Text> Error : {error}</Text>}}
           <Text>{user}</Text>
           <FlatList
           style={styles.list}
@@ -33,8 +36,11 @@ export class Chat extends React.Component {
           <MessageItem user={user} message={message}/>
           }/>
           <View style={styles.AreaSendMessage}>
-          <TextInput style={styles.inputChat}></TextInput>
-          <Button title="send"></Button>
+          <TextInput style={styles.inputChat} value={content} onChangeText={this.handleContentChange}></TextInput>
+          <Button title="send"
+          onPress={this.handleSendPress}
+          disabled={content == ''}
+          ></Button>
         </View>
         </View>
         
