@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, FlatList } from 'react-native';
+import { Text, View, StyleSheet, FlatList, Button, TextInput } from 'react-native';
 import { MessageItem } from './MessageItem';
 
 const messages = [
@@ -27,11 +27,17 @@ export class Chat extends React.Component {
         <View style={styles.container}>
           <Text>{user}</Text>
           <FlatList
+          style={styles.list}
           data={messages.map((message, i) => ({ ...message, key: 'message_${i}'}) )}
           renderItem={({ item: message })=>
           <MessageItem user={user} message={message}/>
           }/>
+          <View style={styles.AreaSendMessage}>
+          <TextInput style={styles.inputChat}></TextInput>
+          <Button title="send"></Button>
         </View>
+        </View>
+        
       );
     }
 }
@@ -43,4 +49,24 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    list: {
+      flex: 1
+    },
+    AreaSendMessage: {
+      backgroundColor: '#DDD',
+      flexDirection: 'row',
+      flex: 0
+    },
+    inputChat: {
+      backgroundColor: "#F0F",
+      borderColor: "blue",
+      borderStyle: "solid",
+      borderWidth: 1,
+      margin: 8,
+      paddingLeft: 8,
+      paddingRight: 8,
+      width: '80%',
+      flex: 1,
+      
+    }
   });
