@@ -15,6 +15,16 @@ export class Chat extends React.Component {
   state = {
     content: ''
   }
+
+  listEl = React.createRef();
+
+  getData(){
+    const { message } = this.props;
+    return message.map((message, i ) => ({
+      ...message, key: `message_${i}`
+    }));
+  }
+
   handleContentChange = content => {
     this.setState({ content });
   }
@@ -34,7 +44,11 @@ export class Chat extends React.Component {
           data={messages.map((message, i) => ({ ...message, key: 'message_${i}'}) )}
           renderItem={({ item: message })=>
           <MessageItem user={user} message={message}/>
-          }/>
+          }
+          ref={ref => this.listEl = ref}
+          onContentSize={() => this.listEl.scrollToEnd({ animate: true})}
+          onLayout={() => this.listEl.scrollToEnd({animated: true})}
+          />
           <View style={styles.AreaSendMessage}>
           <TextInput style={styles.inputChat} value={content} onChangeText={this.handleContentChange}></TextInput>
           <Button title="send"
